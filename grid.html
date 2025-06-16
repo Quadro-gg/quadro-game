@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>WordGrid Preview</title>
+  <style>
+    /* In‐game styling */
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #a8e6cf, #dcedc1);
+      margin: 0;
+      padding: 40px;
+      text-align: center;
+    }
+    .container {
+      display: flex;
+      justify-content: center;
+      gap: 50px;
+    }
+    .grid-container {
+      background: #fff;
+      border: 2px solid #333;
+      padding: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    .title {
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    .grid {
+      display: grid;
+      gap: 5px;
+    }
+    /* Easy Mode: 4 columns x 10 rows */
+    .easy-grid {
+      grid-template-columns: repeat(4, 60px);
+      grid-template-rows: repeat(10, 60px);
+    }
+    /* Normal Mode: 5 columns x 10 rows */
+    .normal-grid {
+      grid-template-columns: repeat(5, 60px);
+      grid-template-rows: repeat(10, 60px);
+    }
+    .cell {
+      width: 60px;
+      height: 60px;
+      background: #fff;
+      border: 1px solid #333;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 24px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Easy Mode Preview -->
+    <div class="grid-container">
+      <div class="title">Easy Mode (Target: 4 in a row)</div>
+      <div class="grid easy-grid">
+        <!-- Easy Mode Grid (4 columns x 10 rows) -->
+        <!-- Row 1 -->
+        <div class="cell">U</div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <!-- Row 2 -->
+        <div class="cell">Q</div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <!-- Row 3 -->
+        <div class="cell">Q</div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <!-- Row 4 -->
+        <div class="cell">H</div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <!-- Row 5 -->
+        <div class="cell">A</div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <!-- Row 6 -->
+        <div class="cell">D</div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <!-- Row 7 -->
+        <div class="cell">D</div>
+        <div class="cell">T</div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <!-- Row 8 -->
+        <div class="cell">Y</div>
+        <div class="cell">Y</div>
+        <div class="cell">H</div>
+        <div class="cell">Y</div>
+        <!-- Row 9 -->
+        <div class="cell">H</div>
+        <div class="cell">U</div>
+        <div class="cell">G</div>
+        <div class="cell">E</div>
+        <!-- Row 10 -->
+        <div class="cell">Z</div>
+        <div class="cell">X</div>
+        <div class="cell">Y</div>
+        <div class="cell">Z</div>
+      </div>
+    </div>
+    
+    <!-- Normal Mode Preview -->
+    <div class="grid-container">
+      <div class="title">Normal Mode (Target: 5 in a row)</div>
+      <div class="grid normal-grid">
+        <!-- Normal Mode Grid (5 columns x 10 rows) -->
+        <!-- Row 1 -->
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <!-- Row 2 -->
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell">N</div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <!-- Row 3 -->
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell">X</div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <!-- Row 4 -->
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell">Z</div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <!-- Row 5 -->
+        <div class="cell">Y</div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell">U</div>
+        <div class="cell"></div>
+        <!-- Row 6 -->
+        <div class="cell">T</div>
+        <div class="cell"></div>
+        <div class="cell">I</div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <!-- Row 7 -->
+        <div class="cell">T</div>
+        <div class="cell">T</div>
+        <div class="cell">B</div>
+        <div class="cell">O</div>
+        <div class="cell"></div>
+        <!-- Row 8 -->
+        <div class="cell">E</div>
+        <div class="cell">N</div>
+        <div class="cell">B</div>
+        <div class="cell">H</div>
+        <div class="cell"></div>
+        <!-- Row 9 -->
+        <div class="cell">E</div>
+        <div class="cell">A</div>
+        <div class="cell">G</div>
+        <div class="cell">L</div>
+        <div class="cell">E</div>
+        <!-- Row 10 -->
+        <div class="cell">A</div>
+        <div class="cell">T</div>
+        <div class="cell">Z</div>
+        <div class="cell">N</div>
+        <div class="cell">N</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

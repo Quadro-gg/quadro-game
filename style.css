@@ -1,0 +1,1033 @@
+/* Global Box Sizing */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* Disable the semi-transparent overlay highlight shown on tap in mobile browsers */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ====================================================
+    1) GLOBAL & LANDING PAGE STYLES
+   ==================================================== */
+
+/* Global Reset & Full-Viewport Setup */
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%; /* Use 100% height */
+  overflow: hidden; /* Prevent scrollbars on body */
+  font-family: 'Nunito', sans-serif; /* Changed fallback font */
+  background: linear-gradient(to bottom, #f0f7f2 0%, #fff6e9 100%);
+  color: #333; /* Default text color */
+}
+
+/* Landing Page */
+#landing-page {
+  position: fixed;
+  inset: 0;
+  display: flex; /* Keep flex for layout */
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 900;
+  background: linear-gradient(to bottom, #f0f7f2 0%, #fff6e9 100%);
+  overflow: hidden; /* Prevent internal scroll */
+  padding: 20px; /* Add some padding */
+
+  /* --- Transition Properties --- */
+  opacity: 1; /* Start visible */
+  visibility: visible;
+  pointer-events: auto; /* Allow interaction */
+  transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+/* --- State when Landing Page should be hidden --- */
+#landing-page.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none; /* Prevent interaction when hidden */
+}
+
+
+.logo {
+  max-width: 150px;
+  margin-bottom: 20px;
+}
+
+#landing-page h1 {
+  font-size: clamp(36px, 8vw, 48px); /* Responsive font size */
+  margin-bottom: 15px;
+  color: #444;
+  font-weight: 800;
+}
+
+#landing-page p { /* This is the introductory paragraph */
+  font-size: clamp(18px, 4vw, 25px); /* Responsive font size */
+  margin-bottom: 30px; /* Adjusted margin to account for potential streak display */
+  max-width: 600px;
+  line-height: 1.4;
+  text-align: center;
+  color: #555;
+}
+
+/* Landing Page Actions Structure */
+.landing-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px; /* Space between primary and secondary actions */
+    width: 100%;
+    max-width: 500px; /* Keep max-width */
+}
+
+/* Styles for Primary Landing Page Action Buttons */
+.landing-primary-actions {
+  display: flex;        /* Arrange buttons side-by-side */
+  justify-content: center; /* Center the single button */
+  gap: 10px;            /* Keep gap in case buttons are added back */
+  width: 100%;            /* Take full width of the parent */
+  max-width: 500px;       /* Limit maximum width of the button group */
+}
+
+/* Make primary buttons within this container grow equally */
+.landing-primary-actions .btn-primary {
+  padding: 15px 25px; /* Existing padding */
+  font-size: clamp(16px, 3.5vw, 18px); /* Adjusted font size */
+  max-width: 300px; /* Give the button a max width */
+}
+
+/* MODIFIED AND NEW STYLES FOR DAILY CHALLENGE BUTTON AND CIRCLES */
+#play-daily-speed-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px; /* MODIFIED: Defines space between text and circles container */
+    line-height: 1.2; /* Adjust line height for the text part */
+    /* Padding is inherited from .landing-primary-actions .btn-primary */
+}
+
+#play-daily-speed-btn span:first-child { /* Targets the "Daily Challenge" text */
+    margin-bottom: 0; /* MODIFIED: Removed bottom margin, spacing handled by parent's gap */
+}
+
+.daily-plays-indicator-circles {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px; /* Space between circles */
+    margin-top: 0; /* Reset margin-top if the span above has margin-bottom */
+    /* If the span doesn't have margin-bottom, use margin-top: 8px; here */
+}
+
+.play-circle {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #D97706; /* Darkish Orange (e.g., Tailwind amber-600) */
+    transition: background-color 0.3s ease;
+}
+
+.play-circle.used {
+    background-color: #FFF7ED; /* Whiteish Orange (e.g., Tailwind amber-200) */
+}
+/* END OF MODIFIED AND NEW STYLES */
+
+/* REMOVED #daily-plays-indicator styles as it's no longer used */
+/*
+#daily-plays-indicator {
+    font-size: 0.8em;
+    font-weight: normal;
+    margin-left: 8px;
+    opacity: 0.9;
+}
+*/
+
+.landing-secondary-actions {
+    display: flex;
+    gap: 15px; /* Space between secondary buttons */
+    justify-content: center;
+    width: 100%;
+}
+
+/* Generic Button Styles */
+.btn {
+    padding: 12px 25px; /* Base padding */
+    font-size: clamp(16px, 3.5vw, 18px); /* Base font size */
+    font-weight: bold;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+    text-align: center;
+    width: 100%; /* Default width */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.btn-primary {
+    background-color: #fdb572; /* Primary action color */
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background-color: #f89e4c; /* Darker shade on hover */
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
+#play-daily-speed-btn:disabled {
+    background-color: #cccccc;
+    color: #888888;
+    cursor: pointer; /* Consider 'not-allowed' or 'default' */
+    box-shadow: none;
+    transform: none;
+}
+#play-daily-speed-btn:disabled:hover {
+    background-color: #cccccc;
+    transform: none;
+    box-shadow: none;
+}
+/* REMOVED #play-daily-speed-btn:disabled #daily-plays-indicator as #daily-plays-indicator is removed */
+/*
+#play-daily-speed-btn:disabled #daily-plays-indicator {
+    color: #888888;
+}
+*/
+
+
+.btn-secondary {
+    background-color: #e0e0e0; /* Secondary action color */
+    color: #555;
+    flex-grow: 1;
+    max-width: 180px;
+    padding: 12px 20px;
+    font-size: clamp(15px, 3vw, 16px);
+}
+
+.btn-secondary:hover {
+    background-color: #d1d1d1; /* Darker shade on hover */
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+}
+
+
+/* ====================================================
+    2) TOP BAR (SCORE & TIMER)
+   ==================================================== */
+
+#top-bar {
+  width: 100%;
+  padding: 10px 15px;
+  background: linear-gradient(to bottom, #f0f7f2 0%, #fff6e9 100%);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  z-index: 10;
+  position: relative;
+
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(-10px);
+  transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+}
+
+#top-bar.visible {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0);
+}
+
+#top-bar-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 1000px;
+    margin: 0 auto;
+    min-height: 24px;
+    gap: 20px;
+}
+
+#score-display {
+  font-weight: bold;
+  font-size: calc(var(--cell-size, 40px) * 0.35);
+  color: #444;
+  white-space: nowrap;
+}
+
+#timer-display {
+    font-weight: bold;
+    font-size: calc(var(--cell-size, 40px) * 0.35);
+    color: #d32f2f;
+    background-color: rgba(255, 255, 255, 0.5);
+    padding: 2px 8px;
+    border-radius: 5px;
+    min-width: 60px;
+    text-align: right;
+    flex-shrink: 0;
+    visibility: hidden;
+    white-space: nowrap;
+}
+
+
+/* ====================================================
+    3) INSTRUCTION POPUP (Static) & GAME OVER
+   ==================================================== */
+
+#instruction-popup {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  background: linear-gradient(to bottom, rgba(240,247,242,0.85) 0%, rgba(255,246,233,0.85) 100%);
+  overflow-y: auto;
+  padding: 15px;
+
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+#instruction-popup.visible {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+
+.instruction-container {
+  width: clamp(300px, 90%, 600px);
+  max-width: 90%;
+  background: rgba(255,255,255,0.95);
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: auto;
+  transform: scale(0.95);
+  transition: transform 0.3s ease 0.1s;
+}
+
+#instruction-popup.visible .instruction-container {
+    transform: scale(1);
+}
+
+.instruction-header { text-align: center; margin-bottom: 0.5rem; }
+.instruction-header h1 { margin: 0; font-size: clamp(1.5rem, 4vw, 2.5rem); font-weight: 800; color: #333; letter-spacing: 0.05em; }
+.instruction-header h2 { margin: 0.25rem 0 0.5rem; font-size: clamp(2rem, 5vw, 3rem); font-weight: 900; letter-spacing: 0.1em; color: #333; }
+.instruction-step { display: flex; align-items: center; margin-bottom: 0.75rem; flex-wrap: wrap; }
+.instruction-step:last-of-type { margin-bottom: 0; }
+.step-icon { width: clamp(30px, 5vw, 45px); height: clamp(30px, 5vw, 45px); background-color: #fdb572; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-right: 0.75rem; box-shadow: 0 4px 8px rgba(0,0,0,0.1); font-size: clamp(1rem, 4vw, 1.25rem); color: #fff; }
+.step-icon.double { display: flex; gap: 0.25rem; font-size: clamp(0.9rem, 3.5vw, 1.125rem); }
+.step-icon.double > span { background-color: #fdb572; width: clamp(18px, 4vw, 22px); height: clamp(18px, 4vw, 22px); display: flex; align-items: center; justify-content: center; border-radius: 50%; box-shadow: 0 2px 5px rgba(0,0,0,0.08); }
+.step-text { flex: 1; min-width: 150px; }
+.step-text h3 { margin: 0; font-size: clamp(1rem, 3vw, 1.25rem); font-weight: 700; color: #333; }
+.step-text p { margin: 0.25rem 0 0; font-size: clamp(0.875rem, 2vw, 1rem); color: #555; line-height: 1.3; }
+
+.step-preview { display: grid; grid-template-columns: repeat(4, 30px); grid-template-rows: repeat(3, 30px); gap: 3px; margin-left: 0.25rem; margin-top: 5px; flex-shrink: 0; }
+.instruction-step .grid-cell { width: 30px; height: 30px; border: 1px solid #aaa; border-radius: 5px; background-color: #fdfdfd; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; font-weight: bold; color: #333; }
+.instruction-step .tile-active { background-color: #ffcc80; color: #fff; }
+.instruction-step .tile-word { color: #6ba56b; background-color: #e9f5ee; }
+.instruction-step .wildcard-cell { background-color: #ffdd67; color: #333; }
+
+#back-to-home-from-instructions-btn {
+    display: block;
+    width: 100%;
+    max-width: 200px;
+    margin: 0.5rem auto 0;
+}
+
+#game-over-overlay {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0,0,0,0.8);
+    padding: 15px;
+    z-index: 1000;
+
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+#game-over-overlay.visible {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+.game-over-content {
+    background: #fff;
+    padding: 25px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.25);
+    width: clamp(320px, 90%, 480px);
+    max-width: 90%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+    transform: translateY(20px) scale(0.95);
+    opacity: 0;
+    transition: transform 0.4s ease 0.1s, opacity 0.4s ease 0.1s;
+}
+
+#game-over-overlay.visible .game-over-content {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+}
+
+.game-over-divider {
+    border: none;
+    height: 1px;
+    background-color: #eee;
+    margin: 5px 0;
+    width: 100%;
+}
+
+#score-section {
+    padding: 0;
+    background: none;
+    border: none;
+    margin-bottom: 0;
+}
+
+.score-label {
+    font-size: clamp(1rem, 3vw, 1.1rem);
+    color: #666;
+    margin: 0 0 5px 0;
+    font-weight: bold;
+}
+.score-value {
+    font-size: clamp(2.8rem, 12vw, 4rem);
+    color: #f4a42d;
+    margin: 0 0 5px 0;
+    font-weight: 900;
+    line-height: 1;
+}
+#practice-high-score {
+    font-size: clamp(0.9rem, 2.5vw, 1rem);
+    color: #777;
+    margin: 5px 0 0 0;
+}
+
+.encouraging-comment-text {
+    font-size: clamp(1rem, 3.5vw, 1.2rem);
+    color: #444;
+    font-weight: normal;
+    margin: 0;
+    font-style: italic;
+    padding: 5px 0;
+}
+
+#daily-streak-result {
+    margin: 0 !important;
+    padding: 5px 0;
+    font-size: clamp(1.1rem, 3.5vw, 1.3rem) !important;
+    font-weight: bold !important;
+}
+
+.plays-remaining-text {
+    font-size: 0.9em;
+    color: #666;
+    margin-top: 5px;
+}
+
+.share-prompt-text {
+    font-size: clamp(1rem, 3vw, 1.1rem);
+    color: #555;
+    font-weight: bold;
+    margin: 0;
+    padding: 5px 0;
+}
+
+#share-panel {
+    margin: 0;
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+.btn-share {
+    padding: 10px;
+    font-size: clamp(1.2rem, 4vw, 1.5rem);
+    font-weight: bold;
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+}
+.btn-share svg {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+}
+.btn-share:hover {
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+}
+.btn-twitter { background-color: #1da1f2; }
+.btn-whatsapp { background-color: #25d366; }
+.btn-facebook { background-color: #3b5998; }
+.btn-copy { background-color: #9c27b0; }
+#share-copy svg + *:not(svg) { display: none; }
+#share-copy[disabled] {
+    font-size: 0.8rem;
+    padding: 10px 5px;
+      width: auto;
+      min-width: 44px;
+      border-radius: 8px;
+}
+#share-copy[disabled] svg { margin-right: 5px; }
+
+.results-section {
+    padding: 10px 15px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    border: 1px solid #eee;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 300px;
+}
+
+.leaderboard-title {
+    font-size: clamp(0.9rem, 2.8vw, 1rem);
+    color: #444;
+    margin: 0 0 5px 0;
+    font-weight: 700;
+    text-align: center;
+}
+.leaderboard-container {
+    overflow-y: auto;
+    margin-top: 5px;
+    padding: 3px;
+    border: 1px solid #eee;
+    border-radius: 6px;
+    background-color: #fff;
+}
+.leaderboard-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.leaderboard-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4px 6px;
+    border-bottom: 1px dashed #eee;
+    font-size: clamp(0.85rem, 2.3vw, 0.95rem);
+    color: #555;
+}
+.leaderboard-list li:last-child {
+    border-bottom: none;
+}
+.leaderboard-list li:nth-child(even) {
+    background-color: #f8f8f8;
+}
+.leaderboard-rank {
+    font-weight: bold;
+    color: #888;
+    min-width: 20px;
+    text-align: right;
+    margin-right: 8px;
+}
+.leaderboard-score {
+    font-weight: bold;
+    color: #333;
+    flex-grow: 1;
+    text-align: left;
+    margin-right: 8px;
+}
+.leaderboard-date {
+    font-size: clamp(0.75rem, 1.8vw, 0.85rem);
+    color: #999;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+.no-scores {
+    font-style: italic;
+    color: #888;
+    font-size: clamp(0.85rem, 2.3vw, 0.95rem);
+    padding: 8px 0;
+    text-align: center;
+}
+
+.game-over-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+    width: 100%;
+    margin: 0;
+    padding-top: 5px;
+}
+#play-again-practice-btn {
+    display: none;
+    background-color: #fdb572;
+    color: #fff;
+    padding: 15px 40px;
+    font-size: clamp(1.1rem, 4vw, 1.3rem);
+    max-width: 300px;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.15);
+}
+#play-again-practice-btn:hover {
+    background-color: #f89e4c;
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 7px 14px rgba(0,0,0,0.2);
+}
+#back-to-home-btn {
+    display: block;
+    background-color: #e0e0e0;
+    color: #555;
+    padding: 12px 25px;
+    font-size: clamp(1rem, 3.5vw, 1.1rem);
+    max-width: 300px;
+}
+#back-to-home-btn:hover {
+    background-color: #d1d1d1;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+}
+
+
+/* ====================================================
+    4) RESPONSIVE GAME AREA (Original Styles)
+   ==================================================== */
+
+:root {
+  --num-cols: 4; --num-rows: 10; --grid-gap: 5px; --container-padding: 10px;
+  --container-gap: 10px; --panel-gap: 10px; --top-bar-height: 50px;
+  --cell-size: clamp(5vh, 10vw, 12vh);
+}
+@media (min-width: 1024px) {
+    :root {
+        --cell-size: clamp(5vh, 8vw, 10vh);
+    }
+}
+
+#game-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    gap: var(--container-gap);
+    height: calc( (var(--vh, 1vh) * 100) - var(--top-bar-height, 50px) - (var(--container-padding, 10px) * 2) );
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: var(--container-padding);
+
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+#game-container.visible {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+#game-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--panel-gap);
+    flex-shrink: 0;
+}
+
+#game-grid {
+    display: grid;
+    grid-template-columns: repeat(var(--num-cols, 4), var(--cell-size));
+    grid-template-rows: repeat(var(--num-rows, 10), var(--cell-size));
+    gap: var(--grid-gap, 5px);
+}
+
+.cell {
+    width: var(--cell-size);
+    height: var(--cell-size);
+    background: #fff;
+    border: 1px solid #aaa;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: calc(var(--cell-size) * 0.5);
+    font-weight: bold;
+    color: #444;
+    transition: background 0.2s ease, transform 0.2s ease, opacity 0.8s ease;
+    user-select: none;
+    position: relative;
+}
+
+.falling {
+    background: #ffe17d;
+    color: #333;
+    animation: bounce 0.3s ease;
+    z-index: 5;
+    position: relative;
+}
+@keyframes bounce { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
+
+.wildcard {
+    background: gold !important;
+    color: black !important;
+}
+
+#next-preview {
+    background: #ffffffee;
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;
+    box-shadow: 0 0 5px rgba(0,0,0,0.2);
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    align-self: flex-start;
+    position: relative;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+#next-preview h3 {
+    margin: 0 0 10px 0;
+    font-size: calc(var(--cell-size, 40px) * 0.35);
+    color: #555;
+    font-weight: 700;
+}
+#next-tiles {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.preview-tile {
+    width: var(--cell-size);
+    height: var(--cell-size);
+    background: #fff;
+    border: 1px solid #aaa;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: calc(var(--cell-size) * 0.5);
+    font-weight: bold;
+    color: #444;
+}
+#next-tiles .preview-tile.wildcard {
+    background-color: gold;
+    color: black;
+}
+
+#mobile-controls {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    position: relative;
+    z-index: 11;
+    margin-top: 10px;
+    width: 100%;
+}
+.control-btn {
+    width: var(--cell-size);
+    height: var(--cell-size);
+    background-color: #fdb572;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: calc(var(--cell-size) * 0.6);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    cursor: pointer;
+    transition: transform 0.1s ease, box-shadow 0.1s ease, background-color 0.1s ease, outline 0.2s ease;
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    touch-action: manipulation;
+    user-select: none;
+}
+.control-btn:active {
+    background-color: #f89e4c;
+    transform: scale(0.95);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.12);
+}
+@media (hover: hover) {
+    .control-btn:hover {
+        background-color: #f89e4c;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    }
+    .control-btn:hover:active {
+        background-color: #f89e4c;
+        transform: scale(0.95);
+        box-shadow: 0 2px 5px rgba(0,0,0,0.12);
+    }
+}
+
+@keyframes clearRowAnimation {
+    0% { background-color: #fff; opacity: 1; transform: scale(1); }
+    15% { background-color: #6ba56b; opacity: 1; transform: scale(1.05); }
+    30% { background-color: #fff; opacity: 1; transform: scale(1); }
+    45% { background-color: #6ba56b; opacity: 1; transform: scale(1.05); }
+    60% { background-color: #fff; opacity: 1; transform: scale(1); }
+    100% { background-color: #6ba56b; opacity: 0; transform: scale(0.8); }
+}
+.clearing {
+    animation: clearRowAnimation 0.8s forwards;
+    color: #333 !important;
+}
+
+
+/* ====================================================
+    5) MEDIA QUERY FOR LAYOUT ADJUSTMENTS (Original Styles)
+   ==================================================== */
+
+@media (max-width: 1023px) {
+  #game-container {
+    padding: 15px 10px 10px;
+    height: calc(var(--vh, 1vh) * 100 - var(--top-bar-height, 50px) - 25px);
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+  }
+  #game-panel {
+      flex-shrink: 0;
+  }
+  #next-preview {
+      flex-shrink: 0;
+  }
+}
+
+@media (min-width: 1024px) {
+    .instruction-container {
+        width: 33%;
+        max-width: none;
+    }
+}
+
+@media (max-width: 450px) {
+    #top-bar-content {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+    }
+    #score-display,
+    #timer-display {
+        flex-basis: 100%;
+        text-align: center;
+    }
+    .game-over-content {
+        padding: 20px 15px;
+        gap: 12px;
+    }
+      #share-panel {
+        gap: 10px;
+    }
+    .btn-share {
+        width: 40px;
+        height: 40px;
+    }
+      .btn-share svg {
+        width: 18px;
+        height: 18px;
+    }
+      #play-again-practice-btn {
+        font-size: clamp(1rem, 3.8vw, 1.2rem);
+        padding: 12px 30px;
+    }
+      #back-to-home-btn {
+        font-size: clamp(0.9rem, 3.2vw, 1rem);
+        padding: 10px 20px;
+    }
+    .score-value {
+        font-size: clamp(2.5rem, 10vw, 3.5rem);
+    }
+    .encouraging-comment-text {
+        font-size: clamp(0.9rem, 3vw, 1.1rem);
+    }
+    .results-section {
+        padding: 10px;
+    }
+      .leaderboard-list li {
+        padding: 3px 5px;
+        font-size: clamp(0.8rem, 2.1vw, 0.9rem);
+    }
+    .leaderboard-date {
+        font-size: clamp(0.7rem, 1.6vw, 0.8rem);
+    }
+
+}
+
+/* ====================================================
+    6) INTERACTIVE TUTORIAL STYLES (Original Styles)
+   ==================================================== */
+
+#tutorial-overlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.65);
+    z-index: 1900;
+    cursor: default;
+
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+#tutorial-overlay.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+
+#tutorial-message-box {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #ffffff;
+    padding: 25px 30px;
+    border-radius: 12px;
+    border: 1px solid #eee;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    z-index: 2000;
+    width: clamp(300px, 85%, 480px);
+    max-width: 90vw;
+    text-align: center;
+
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translate(-50%, -45%) scale(0.95);
+    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+}
+
+#tutorial-message-box.visible {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+#tutorial-step-title {
+    font-size: clamp(1.4rem, 5vw, 1.7rem);
+    font-weight: 800;
+    color: #333;
+    margin: 0 0 15px 0;
+    line-height: 1.3;
+}
+
+#tutorial-message-text {
+    font-size: clamp(1.0rem, 3.5vw, 1.15rem);
+    color: #555;
+    margin: 0 0 25px 0;
+    line-height: 1.6;
+}
+
+#tutorial-message-text strong {
+    color: #f4a42d;
+    font-weight: 700;
+}
+
+#tutorial-continue-btn {
+    display: inline-block;
+    width: auto;
+    min-width: 120px;
+    padding: 12px 35px;
+    font-size: clamp(1rem, 3.5vw, 1.1rem);
+}
+
+.control-btn.tutorial-highlight {
+    outline-color: #fdb572;
+    box-shadow: 0 0 15px rgba(253, 181, 114, 0.8);
+    transform: scale(1.05);
+    animation: pulseHighlight 1.5s infinite ease-in-out;
+    z-index: 20;
+}
+
+@keyframes pulseHighlight {
+    0% { box-shadow: 0 0 12px rgba(253, 181, 114, 0.7); outline-color: #fdb572; }
+    50% { box-shadow: 0 0 22px rgba(248, 158, 76, 1); outline-color: #f89e4c; }
+    100% { box-shadow: 0 0 12px rgba(253, 181, 114, 0.7); outline-color: #fdb572; }
+}
+
+#next-preview.tutorial-highlight-next-preview {
+    z-index: 1950;
+    box-shadow: 0 0 15px 5px rgba(253, 181, 114, 0.9), 0 0 5px rgba(0,0,0,0.1);
+    transform: scale(1.03);
+    background-color: #fff;
+}
+
+
+/* ====================================================
+    7) DAILY STREAK DISPLAY
+   ==================================================== */
+
+/* Styles for the main streak display container on the landing page */
+#landing-streak-display {
+  margin-bottom: 20px; /* Original margin from inline style */
+  font-size: 1.1em;    /* Original font-size from inline style, acts as base for children */
+  color: #e67e22;      /* Original color from inline style, for streak emoji/focal text */
+  font-weight: bold;    /* Original weight from inline style, for streak emoji/focal text */
+  text-align: center;   /* For centering the multi-line content when daily plays are used */
+  /* display: none; is handled by inline style in HTML and toggled by JS */
+}
+
+
+/* Styles for the sub-messages within landing-streak-display when daily plays are used */
+#landing-streak-display .landing-sub-message {
+    font-weight: normal; /* Regular font weight */
+    color: #555;         /* Regular text color, not orange */
+    font-size: 1em;      /* Relative to #landing-streak-display's font-size (1.1em * 1em = 1.1em) */
+                                /* Or use a fixed value like 16px or a root-relative unit like 1rem */
+    line-height: 1.4;     /* Improved readability for these lines */
+}
+
+/* Styles for the specific streak sub-messages */
+.streak-comeback-message {
+    color: #555555 
+    font-family: Nunito; /* Inherits 'Nunito', sans-serif from the body/parent */
+    font-size: 1em; /* This will be 1em of #landing-streak-display's 1.1em */
+    font-weight: inherit; /* Inherits 'bold' from #landing-streak-display */
+    line-height: 1.4; /* Improves readability. */
+    color: #555555
+    /* Add any other font styles you want here, e.g., font-style: italic; */
+}
+
+.streak-practice-suggestion {
+    color: inherit; /* Inherits the orange color (#e67e22) from #landing-streak-display */
+    font-family: inherit; /* Inherits 'Nunito', sans-serif from the body/parent */
+    font-size: 1em; /* This will be 1em of #landing-streak-display's 1.1em */
+    font-weight: inherit; /* Inherits 'bold' from #landing-streak-display */
+    line-height: 1.4; /* Improves readability. */
+    /* Add any other font styles you want here, e.g., font-style: italic; */
+}
+/* The focal streak text (e.g., "🔥 X Day Streak!") will have its larger font size (1.5em)
+    and specific color/weight applied via inline styles by the JavaScript,
+    which will override the #landing-streak-display's base font-size for that specific div. */
