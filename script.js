@@ -1527,7 +1527,7 @@ let dailyChallengeLastPlayDateUTC = '';
 
     function getShareText() {
         let text = "";
-        const domain = "yourdomain.com"; // TODO: Replace with your actual domain
+        const domain = "quadro.club"; // TODO: Replace with your actual domain
         const url = `https://${domain}`;
         switch(currentGameMode) {
             case GAME_MODE.DAILY_CHALLENGE:
@@ -1549,7 +1549,7 @@ let dailyChallengeLastPlayDateUTC = '';
 
     function shareOnTwitter() { const text = encodeURIComponent(getShareText()); window.open(`https://twitter.com/intent/tweet?text=${text}`, '_blank', 'noopener,noreferrer'); }
     function shareOnWhatsApp() { const text = encodeURIComponent(getShareText()); window.open(`https://wa.me/?text=${text}`, '_blank', 'noopener,noreferrer'); }
-    function shareOnFacebook() { const domain = "yourdomain.com"; const url = `https://${domain}`; const fbShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}&quote=${encodeURIComponent(getShareText())}`; window.open(fbShareUrl, '_blank', 'noopener,noreferrer'); }
+    function shareOnFacebook() { const domain = "quadro.club"; const url = `https://${domain}`; const fbShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}&quote=${encodeURIComponent(getShareText())}`; window.open(fbShareUrl, '_blank', 'noopener,noreferrer'); }
     function copyShareCaption() {
         const caption = getShareText();
         copyToClipboard(caption)
