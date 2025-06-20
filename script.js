@@ -1,6 +1,7 @@
 // ====================================================
 //              CONSTANTS & CONFIG
 // ====================================================
+
 const NUM_COLS = 4;
 const NUM_ROWS = 10;
 const WILDCARD_SYMBOL = "★"; // Unicode star symbol for wildcard
@@ -129,7 +130,16 @@ const fallbackComments = [ // Renamed from ENCOURAGING_COMMENTS to avoid confusi
 const PRACTICE_MODE_DURATION_SECONDS = 120; // 2 minutes (120 seconds)
 const TIMER_WARNING_SECONDS = 15; // Last 15 seconds for warning style
 
+// ====================================================
+//              SUPABASE CONFIG
+// ====================================================
+const SUPABASE_URL = 'https://cuxtbrfknumorafgdpuj.supabase.co'; 
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN1eHRicmZrbnVtb3JhZmdkcHVqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA0MzQ1MzcsImV4cCI6MjA2NjAxMDUzN30.fUqdNax8bfHFh5KYC2hx9iIELMJ8xWGFC8uXmx0iwS4';
 
+const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+console.log('Supabase client initialized.');
+
+// ====================================================
 // ====================================================
 //              GLOBAL VARIABLES
 // ====================================================
