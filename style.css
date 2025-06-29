@@ -9,48 +9,76 @@
 }
 
 /* ====================================================
-    1) GLOBAL & LANDING PAGE STYLES
+    1) ROOT VARIABLES & GLOBAL STYLES
    ==================================================== */
 
-/* Global Reset & Full-Viewport Setup */
+:root {
+    /* Layout & Sizing */
+    --num-cols: 4;
+    --num-rows: 10;
+    --grid-gap: 5px;
+    --container-padding: 10px;
+    --container-gap: 10px;
+    --panel-gap: 10px;
+    --top-bar-height: 50px;
+    --cell-size: clamp(5vh, 10vw, 12vh);
+
+    /* NEW: Font Size Variables (Type Scale) */
+    --font-xs: clamp(0.8rem, 2.2vw, 0.9rem);
+    --font-sm: clamp(0.9rem, 2.5vw, 1rem);
+    --font-base: clamp(1rem, 3vw, 1.125rem);
+    --font-lg: clamp(1.1rem, 3.5vw, 1.25rem);
+    --font-xl: clamp(1.25rem, 4vw, 1.5rem);
+    --font-h2: clamp(1.5rem, 6vmin, 2.2rem);
+    --font-h1: clamp(2rem, 9vmin, 3.5rem);
+    --font-score: clamp(2.8rem, 12vw, 4rem);
+}
+
+@media (min-width: 1024px) {
+    :root {
+        --cell-size: clamp(5vh, 8vw, 10vh);
+    }
+}
+
+/* Global Body & Full-Viewport Setup */
 html, body {
   margin: 0;
   padding: 0;
   width: 100%;
-  height: 100%; /* Use 100% height */
-  overflow: hidden; /* Prevent scrollbars on body */
-  font-family: 'Nunito', sans-serif; /* Changed fallback font */
+  height: 100%;
+  overflow: hidden;
+  font-family: 'Nunito', sans-serif;
   background: linear-gradient(to bottom, #f0f7f2 0%, #fff6e9 100%);
-  color: #333; /* Default text color */
+  color: #333;
 }
 
-/* Landing Page */
+
+/* ====================================================
+    2) LANDING PAGE
+   ==================================================== */
+
 #landing-page {
   position: fixed;
   inset: 0;
-  display: flex; /* Keep flex for layout */
+  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   z-index: 900;
   background: linear-gradient(to bottom, #f0f7f2 0%, #fff6e9 100%);
-  overflow: hidden; /* Prevent internal scroll */
-  padding: 20px; /* Add some padding */
-
-  /* --- Transition Properties --- */
-  opacity: 1; /* Start visible */
+  overflow: hidden;
+  padding: 20px;
+  opacity: 1;
   visibility: visible;
-  pointer-events: auto; /* Allow interaction */
+  pointer-events: auto;
   transition: opacity 0.4s ease, visibility 0.4s ease;
 }
 
-/* --- State when Landing Page should be hidden --- */
 #landing-page.hidden {
     opacity: 0;
     visibility: hidden;
-    pointer-events: none; /* Prevent interaction when hidden */
+    pointer-events: none;
 }
-
 
 .logo {
   max-width: 150px;
@@ -58,122 +86,107 @@ html, body {
 }
 
 #landing-page h1 {
-  font-size: clamp(36px, 8vw, 48px); /* Responsive font size */
+  font-size: var(--font-h1);
   margin-bottom: 15px;
   color: #444;
   font-weight: 800;
 }
 
-#landing-page p { /* This is the introductory paragraph */
-  font-size: clamp(18px, 4vw, 25px); /* Responsive font size */
-  margin-bottom: 30px; /* Adjusted margin to account for potential streak display */
+#landing-page p {
+  font-size: var(--font-lg);
+  margin-bottom: 30px;
   max-width: 600px;
   line-height: 1.4;
   text-align: center;
   color: #555;
 }
 
-/* Landing Page Actions Structure */
 .landing-actions {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 20px; /* Space between primary and secondary actions */
+    gap: 20px;
     width: 100%;
-    max-width: 500px; /* Keep max-width */
+    max-width: 500px;
 }
 
-/* Styles for Primary Landing Page Action Buttons */
 .landing-primary-actions {
-  display: flex;        /* Arrange buttons side-by-side */
-  justify-content: center; /* Center the single button */
-  gap: 10px;            /* Keep gap in case buttons are added back */
-  width: 100%;            /* Take full width of the parent */
-  max-width: 500px;       /* Limit maximum width of the button group */
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  max-width: 500px;
 }
 
-/* Make primary buttons within this container grow equally */
 .landing-primary-actions .btn-primary {
-  padding: 15px 25px; /* Existing padding */
-  font-size: clamp(16px, 3.5vw, 18px); /* Adjusted font size */
-  max-width: 300px; /* Give the button a max width */
+  padding: 15px 25px;
+  font-size: var(--font-base);
+  max-width: 300px;
 }
 
-/* MODIFIED AND NEW STYLES FOR DAILY CHALLENGE BUTTON AND CIRCLES */
 #play-daily-speed-btn {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 4px; /* MODIFIED: Defines space between text and circles container */
-    line-height: 1.2; /* Adjust line height for the text part */
-    /* Padding is inherited from .landing-primary-actions .btn-primary */
+    gap: 4px;
+    line-height: 1.2;
 }
 
-#play-daily-speed-btn span:first-child { /* Targets the "Daily Challenge" text */
-    margin-bottom: 0; /* MODIFIED: Removed bottom margin, spacing handled by parent's gap */
+#play-daily-speed-btn span:first-child {
+    margin-bottom: 0;
 }
 
 .daily-plays-indicator-circles {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 6px; /* Space between circles */
-    margin-top: 0; /* Reset margin-top if the span above has margin-bottom */
-    /* If the span doesn't have margin-bottom, use margin-top: 8px; here */
+    gap: 6px;
+    margin-top: 0;
 }
 
 .play-circle {
     width: 10px;
     height: 10px;
     border-radius: 50%;
-    background-color: #D97706; /* Darkish Orange (e.g., Tailwind amber-600) */
+    background-color: #D97706;
     transition: background-color 0.3s ease;
 }
 
 .play-circle.used {
-    background-color: #FFF7ED; /* Whiteish Orange (e.g., Tailwind amber-200) */
+    background-color: #FFF7ED;
 }
-/* END OF MODIFIED AND NEW STYLES */
-
-/* REMOVED #daily-plays-indicator styles as it's no longer used */
-/*
-#daily-plays-indicator {
-    font-size: 0.8em;
-    font-weight: normal;
-    margin-left: 8px;
-    opacity: 0.9;
-}
-*/
 
 .landing-secondary-actions {
     display: flex;
-    gap: 15px; /* Space between secondary buttons */
+    gap: 15px;
     justify-content: center;
     width: 100%;
 }
 
-/* Generic Button Styles */
 .btn {
-    padding: 12px 25px; /* Base padding */
-    font-size: clamp(16px, 3.5vw, 18px); /* Base font size */
+    padding: 12px 25px;
+    font-size: var(--font-base);
     font-weight: bold;
     border: none;
     border-radius: 10px;
     cursor: pointer;
     transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
     text-align: center;
-    width: 100%; /* Default width */
+    width: 100%;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    /* NEW: Minimum touch target size */
+    min-height: 44px;
+    min-width: 44px;
 }
 
 .btn-primary {
-    background-color: #fdb572; /* Primary action color */
+    background-color: #fdb572;
     color: #fff;
 }
 
 .btn-primary:hover {
-    background-color: #f89e4c; /* Darker shade on hover */
+    background-color: #f89e4c;
     transform: translateY(-2px);
     box-shadow: 0 6px 12px rgba(0,0,0,0.15);
 }
@@ -181,7 +194,7 @@ html, body {
 #play-daily-speed-btn:disabled {
     background-color: #cccccc;
     color: #888888;
-    cursor: pointer; /* Consider 'not-allowed' or 'default' */
+    cursor: default;
     box-shadow: none;
     transform: none;
 }
@@ -190,32 +203,24 @@ html, body {
     transform: none;
     box-shadow: none;
 }
-/* REMOVED #play-daily-speed-btn:disabled #daily-plays-indicator as #daily-plays-indicator is removed */
-/*
-#play-daily-speed-btn:disabled #daily-plays-indicator {
-    color: #888888;
-}
-*/
-
 
 .btn-secondary {
-    background-color: #e0e0e0; /* Secondary action color */
+    background-color: #e0e0e0;
     color: #555;
     flex-grow: 1;
     max-width: 180px;
     padding: 12px 20px;
-    font-size: clamp(15px, 3vw, 16px);
+    font-size: var(--font-sm);
 }
 
 .btn-secondary:hover {
-    background-color: #d1d1d1; /* Darker shade on hover */
+    background-color: #d1d1d1;
     transform: translateY(-2px);
     box-shadow: 0 6px 12px rgba(0,0,0,0.1);
 }
 
-
 /* ====================================================
-    2) TOP BAR (SCORE & TIMER)
+    3) TOP BAR (SCORE & TIMER)
    ==================================================== */
 
 #top-bar {
@@ -225,7 +230,6 @@ html, body {
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
   z-index: 10;
   position: relative;
-
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
@@ -250,16 +254,15 @@ html, body {
     gap: 20px;
 }
 
-#score-display {
+#score-display,
+#timer-display {
   font-weight: bold;
-  font-size: calc(var(--cell-size, 40px) * 0.35);
+  font-size: calc(var(--cell-size, 40px) * 0.35); /* Kept relative to cell size for dynamic UI */
   color: #444;
   white-space: nowrap;
 }
 
 #timer-display {
-    font-weight: bold;
-    font-size: calc(var(--cell-size, 40px) * 0.35);
     color: #d32f2f;
     background-color: rgba(255, 255, 255, 0.5);
     padding: 2px 8px;
@@ -268,30 +271,28 @@ html, body {
     text-align: right;
     flex-shrink: 0;
     visibility: hidden;
-    white-space: nowrap;
 }
 
 
 /* ====================================================
-    3) INSTRUCTION POPUP (Static) & GAME OVER
+    4) INSTRUCTION POPUP & GAME OVER
    ==================================================== */
 
 #instruction-popup {
-  position: fixed;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-  background: linear-gradient(to bottom, rgba(240,247,242,0.85) 0%, rgba(255,246,233,0.85) 100%);
-  overflow-y: auto;
-  padding: 15px;
-
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-  transition: opacity 0.4s ease, visibility 0.4s ease;
+    position: fixed;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    background: linear-gradient(to bottom, #f0f7f2 0%, #fff6e9 100%);
+    overflow: hidden; /* Prevent scrolling */
+    padding: 2vh 20px 2vh;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
 }
 
 #instruction-popup.visible {
@@ -300,49 +301,141 @@ html, body {
     pointer-events: auto;
 }
 
-
 .instruction-container {
-  width: clamp(300px, 90%, 600px);
-  max-width: 90%;
-  background: rgba(255,255,255,0.95);
-  border-radius: 10px;
-  padding: 20px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  margin: auto;
-  transform: scale(0.95);
-  transition: transform 0.3s ease 0.1s;
+    width: 100%;
+    max-width: 500px;
+    height: 100%;
+    max-height: 800px;
+    background: #ffffff;
+    border-radius: 20px;
+    padding: clamp(15px, 4vh, 40px);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    gap: clamp(10px, 2.5vh, 25px);
+    transform: scale(0.95);
+    transition: transform 0.3s ease 0.1s;
 }
 
 #instruction-popup.visible .instruction-container {
     transform: scale(1);
 }
 
-.instruction-header { text-align: center; margin-bottom: 0.5rem; }
-.instruction-header h1 { margin: 0; font-size: clamp(1.5rem, 4vw, 2.5rem); font-weight: 800; color: #333; letter-spacing: 0.05em; }
-.instruction-header h2 { margin: 0.25rem 0 0.5rem; font-size: clamp(2rem, 5vw, 3rem); font-weight: 900; letter-spacing: 0.1em; color: #333; }
-.instruction-step { display: flex; align-items: center; margin-bottom: 0.75rem; flex-wrap: wrap; }
-.instruction-step:last-of-type { margin-bottom: 0; }
-.step-icon { width: clamp(30px, 5vw, 45px); height: clamp(30px, 5vw, 45px); background-color: #fdb572; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-right: 0.75rem; box-shadow: 0 4px 8px rgba(0,0,0,0.1); font-size: clamp(1rem, 4vw, 1.25rem); color: #fff; }
-.step-icon.double { display: flex; gap: 0.25rem; font-size: clamp(0.9rem, 3.5vw, 1.125rem); }
-.step-icon.double > span { background-color: #fdb572; width: clamp(18px, 4vw, 22px); height: clamp(18px, 4vw, 22px); display: flex; align-items: center; justify-content: center; border-radius: 50%; box-shadow: 0 2px 5px rgba(0,0,0,0.08); }
-.step-text { flex: 1; min-width: 150px; }
-.step-text h3 { margin: 0; font-size: clamp(1rem, 3vw, 1.25rem); font-weight: 700; color: #333; }
-.step-text p { margin: 0.25rem 0 0; font-size: clamp(0.875rem, 2vw, 1rem); color: #555; line-height: 1.3; }
+.instruction-header {
+    text-align: center;
+    margin-bottom: 0;
+    flex-shrink: 0;
+}
+.instruction-header h1 {
+    margin: 0;
+    font-size: var(--font-h2);
+    font-weight: 800;
+    color: #333;
+    letter-spacing: 0.05em;
+}
+.instruction-header h2 {
+    margin: 0;
+    font-size: var(--font-h1);
+    font-weight: 900;
+    letter-spacing: 0.1em;
+    color: #444;
+}
 
-.step-preview { display: grid; grid-template-columns: repeat(4, 30px); grid-template-rows: repeat(3, 30px); gap: 3px; margin-left: 0.25rem; margin-top: 5px; flex-shrink: 0; }
-.instruction-step .grid-cell { width: 30px; height: 30px; border: 1px solid #aaa; border-radius: 5px; background-color: #fdfdfd; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; font-weight: bold; color: #333; }
-.instruction-step .tile-active { background-color: #ffcc80; color: #fff; }
-.instruction-step .tile-word { color: #6ba56b; background-color: #e9f5ee; }
-.instruction-step .wildcard-cell { background-color: #ffdd67; color: #333; }
+.instruction-step {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: 15px;
+}
+
+.step-icon {
+    width: clamp(40px, 10vmin, 50px);
+    height: clamp(40px, 10vmin, 50px);
+    background-color: #fdb572;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    font-size: var(--font-xl);
+    color: #fff;
+    margin-right: 0;
+}
+.step-icon.double {
+    font-size: var(--font-lg);
+}
+.step-icon.double > span {
+    width: clamp(20px, 5vmin, 25px);
+    height: clamp(20px, 5vmin, 25px);
+}
+
+.step-text {
+    flex: 1;
+    min-width: 0;
+}
+.step-text h3 {
+    margin: 0;
+    font-size: var(--font-base);
+    font-weight: 700;
+    color: #333;
+}
+.step-text p {
+    margin: 2px 0 0;
+    font-size: var(--font-sm);
+    color: #555;
+    line-height: 1.3;
+}
+
+.step-preview {
+    display: grid;
+    --preview-cell-size: clamp(22px, 5.5vmin, 30px);
+    grid-template-columns: repeat(4, var(--preview-cell-size));
+    grid-template-rows: repeat(3, var(--preview-cell-size));
+    gap: 3px;
+    margin-left: 0;
+    flex-shrink: 0;
+}
+.instruction-step .grid-cell {
+    width: var(--preview-cell-size);
+    height: var(--preview-cell-size);
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f5f5f5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(var(--preview-cell-size) * 0.5);
+    font-weight: bold;
+    color: #333;
+}
+.instruction-step .tile-active {
+    background-color: #ffcc80;
+    color: #fff;
+    border-color: #fdb572;
+}
+.instruction-step .tile-word {
+    color: #fff;
+    background-color: #6ba56b;
+    border-color: #5a945a;
+}
+.instruction-step .wildcard-cell {
+    background-color: #ffdd67;
+    color: #333;
+    border-color: #f0c429;
+}
 
 #back-to-home-from-instructions-btn {
     display: block;
     width: 100%;
-    max-width: 200px;
-    margin: 0.5rem auto 0;
+    max-width: 250px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    font-size: var(--font-base);
+    margin: 0;
+    flex-shrink: 0;
 }
 
 #game-over-overlay {
@@ -354,7 +447,6 @@ html, body {
     background: rgba(0,0,0,0.8);
     padding: 15px;
     z-index: 1000;
-
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
@@ -378,7 +470,6 @@ html, body {
     display: flex;
     flex-direction: column;
     gap: 15px;
-
     transform: translateY(20px) scale(0.95);
     opacity: 0;
     transition: transform 0.4s ease 0.1s, opacity 0.4s ease 0.1s;
@@ -405,26 +496,26 @@ html, body {
 }
 
 .score-label {
-    font-size: clamp(1rem, 3vw, 1.1rem);
+    font-size: var(--font-base);
     color: #666;
     margin: 0 0 5px 0;
     font-weight: bold;
 }
 .score-value {
-    font-size: clamp(2.8rem, 12vw, 4rem);
+    font-size: var(--font-score);
     color: #f4a42d;
     margin: 0 0 5px 0;
     font-weight: 900;
     line-height: 1;
 }
 #practice-high-score {
-    font-size: clamp(0.9rem, 2.5vw, 1rem);
+    font-size: var(--font-sm);
     color: #777;
     margin: 5px 0 0 0;
 }
 
 .encouraging-comment-text {
-    font-size: clamp(1rem, 3.5vw, 1.2rem);
+    font-size: var(--font-lg);
     color: #444;
     font-weight: normal;
     margin: 0;
@@ -435,18 +526,18 @@ html, body {
 #daily-streak-result {
     margin: 0 !important;
     padding: 5px 0;
-    font-size: clamp(1.1rem, 3.5vw, 1.3rem) !important;
+    font-size: var(--font-lg) !important;
     font-weight: bold !important;
 }
 
 .plays-remaining-text {
-    font-size: 0.9em;
+    font-size: var(--font-sm);
     color: #666;
     margin-top: 5px;
 }
 
 .share-prompt-text {
-    font-size: clamp(1rem, 3vw, 1.1rem);
+    font-size: var(--font-base);
     color: #555;
     font-weight: bold;
     margin: 0;
@@ -464,15 +555,13 @@ html, body {
 }
 .btn-share {
     padding: 10px;
-    font-size: clamp(1.2rem, 4vw, 1.5rem);
-    font-weight: bold;
     color: #fff;
     border: none;
     border-radius: 50%;
     cursor: pointer;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
-    width: 44px;
-    height: 44px;
+    width: 44px; /* Already meets 44px minimum */
+    height: 44px; /* Already meets 44px minimum */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -494,11 +583,11 @@ html, body {
 .btn-copy { background-color: #9c27b0; }
 #share-copy svg + *:not(svg) { display: none; }
 #share-copy[disabled] {
-    font-size: 0.8rem;
+    font-size: var(--font-xs);
     padding: 10px 5px;
-      width: auto;
-      min-width: 44px;
-      border-radius: 8px;
+    width: auto;
+    min-width: 44px;
+    border-radius: 8px;
 }
 #share-copy[disabled] svg { margin-right: 5px; }
 
@@ -513,7 +602,7 @@ html, body {
 }
 
 .leaderboard-title {
-    font-size: clamp(0.9rem, 2.8vw, 1rem);
+    font-size: var(--font-sm);
     color: #444;
     margin: 0 0 5px 0;
     font-weight: 700;
@@ -538,7 +627,7 @@ html, body {
     align-items: center;
     padding: 4px 6px;
     border-bottom: 1px dashed #eee;
-    font-size: clamp(0.85rem, 2.3vw, 0.95rem);
+    font-size: var(--font-sm);
     color: #555;
 }
 .leaderboard-list li:last-child {
@@ -562,7 +651,7 @@ html, body {
     margin-right: 8px;
 }
 .leaderboard-date {
-    font-size: clamp(0.75rem, 1.8vw, 0.85rem);
+    font-size: var(--font-xs);
     color: #999;
     white-space: nowrap;
     flex-shrink: 0;
@@ -570,7 +659,7 @@ html, body {
 .no-scores {
     font-style: italic;
     color: #888;
-    font-size: clamp(0.85rem, 2.3vw, 0.95rem);
+    font-size: var(--font-sm);
     padding: 8px 0;
     text-align: center;
 }
@@ -589,7 +678,7 @@ html, body {
     background-color: #fdb572;
     color: #fff;
     padding: 15px 40px;
-    font-size: clamp(1.1rem, 4vw, 1.3rem);
+    font-size: var(--font-lg);
     max-width: 300px;
     box-shadow: 0 5px 10px rgba(0,0,0,0.15);
 }
@@ -603,7 +692,7 @@ html, body {
     background-color: #e0e0e0;
     color: #555;
     padding: 12px 25px;
-    font-size: clamp(1rem, 3.5vw, 1.1rem);
+    font-size: var(--font-base);
     max-width: 300px;
 }
 #back-to-home-btn:hover {
@@ -612,21 +701,9 @@ html, body {
     box-shadow: 0 6px 12px rgba(0,0,0,0.1);
 }
 
-
 /* ====================================================
-    4) RESPONSIVE GAME AREA (Original Styles)
+    5) RESPONSIVE GAME AREA
    ==================================================== */
-
-:root {
-  --num-cols: 4; --num-rows: 10; --grid-gap: 5px; --container-padding: 10px;
-  --container-gap: 10px; --panel-gap: 10px; --top-bar-height: 50px;
-  --cell-size: clamp(5vh, 10vw, 12vh);
-}
-@media (min-width: 1024px) {
-    :root {
-        --cell-size: clamp(5vh, 8vw, 10vh);
-    }
-}
 
 #game-container {
     display: flex;
@@ -639,7 +716,6 @@ html, body {
     max-width: 1200px;
     margin: 0 auto;
     padding: var(--container-padding);
-
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
@@ -715,7 +791,7 @@ html, body {
 }
 #next-preview h3 {
     margin: 0 0 10px 0;
-    font-size: calc(var(--cell-size, 40px) * 0.35);
+    font-size: calc(var(--cell-size, 40px) * 0.35); /* Kept relative */
     color: #555;
     font-weight: 700;
 }
@@ -734,7 +810,7 @@ html, body {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: calc(var(--cell-size) * 0.5);
+    font-size: calc(var(--cell-size) * 0.5); /* Kept relative */
     font-weight: bold;
     color: #444;
 }
@@ -753,13 +829,11 @@ html, body {
     width: 100%;
 }
 .control-btn {
-    width: var(--cell-size);
-    height: var(--cell-size);
     background-color: #fdb572;
     color: #fff;
     border: none;
     border-radius: 8px;
-    font-size: calc(var(--cell-size) * 0.6);
+    font-size: calc(var(--cell-size) * 0.6); /* Kept relative */
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     cursor: pointer;
     transition: transform 0.1s ease, box-shadow 0.1s ease, background-color 0.1s ease, outline 0.2s ease;
@@ -770,6 +844,9 @@ html, body {
     align-items: center;
     touch-action: manipulation;
     user-select: none;
+    /* NEW: Ensure touch target is large enough even if cell size is small */
+    width: max(var(--cell-size), 44px);
+    height: max(var(--cell-size), 44px);
 }
 .control-btn:active {
     background-color: #f89e4c;
@@ -804,7 +881,7 @@ html, body {
 
 
 /* ====================================================
-    5) MEDIA QUERY FOR LAYOUT ADJUSTMENTS (Original Styles)
+    6) MEDIA QUERIES FOR LAYOUT ADJUSTMENTS
    ==================================================== */
 
 @media (max-width: 1023px) {
@@ -823,12 +900,8 @@ html, body {
   }
 }
 
-@media (min-width: 1024px) {
-    .instruction-container {
-        width: 33%;
-        max-width: none;
-    }
-}
+/* Note: The desktop override for instruction-container width is removed
+   as the new layout logic makes it unnecessary. */
 
 @media (max-width: 450px) {
     #top-bar-content {
@@ -857,34 +930,19 @@ html, body {
         height: 18px;
     }
       #play-again-practice-btn {
-        font-size: clamp(1rem, 3.8vw, 1.2rem);
         padding: 12px 30px;
     }
       #back-to-home-btn {
-        font-size: clamp(0.9rem, 3.2vw, 1rem);
         padding: 10px 20px;
-    }
-    .score-value {
-        font-size: clamp(2.5rem, 10vw, 3.5rem);
-    }
-    .encouraging-comment-text {
-        font-size: clamp(0.9rem, 3vw, 1.1rem);
     }
     .results-section {
         padding: 10px;
     }
-      .leaderboard-list li {
-        padding: 3px 5px;
-        font-size: clamp(0.8rem, 2.1vw, 0.9rem);
-    }
-    .leaderboard-date {
-        font-size: clamp(0.7rem, 1.6vw, 0.8rem);
-    }
-
 }
 
+
 /* ====================================================
-    6) INTERACTIVE TUTORIAL STYLES (Original Styles)
+    7) INTERACTIVE TUTORIAL STYLES
    ==================================================== */
 
 #tutorial-overlay {
@@ -893,7 +951,6 @@ html, body {
     background-color: rgba(0, 0, 0, 0.65);
     z-index: 1900;
     cursor: default;
-
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
@@ -904,7 +961,6 @@ html, body {
     opacity: 1;
     visibility: visible;
 }
-
 
 #tutorial-message-box {
     position: fixed;
@@ -920,7 +976,6 @@ html, body {
     width: clamp(300px, 85%, 480px);
     max-width: 90vw;
     text-align: center;
-
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
@@ -936,7 +991,7 @@ html, body {
 }
 
 #tutorial-step-title {
-    font-size: clamp(1.4rem, 5vw, 1.7rem);
+    font-size: var(--font-xl);
     font-weight: 800;
     color: #333;
     margin: 0 0 15px 0;
@@ -944,7 +999,7 @@ html, body {
 }
 
 #tutorial-message-text {
-    font-size: clamp(1.0rem, 3.5vw, 1.15rem);
+    font-size: var(--font-base);
     color: #555;
     margin: 0 0 25px 0;
     line-height: 1.6;
@@ -960,7 +1015,7 @@ html, body {
     width: auto;
     min-width: 120px;
     padding: 12px 35px;
-    font-size: clamp(1rem, 3.5vw, 1.1rem);
+    font-size: var(--font-base);
 }
 
 .control-btn.tutorial-highlight {
@@ -986,48 +1041,34 @@ html, body {
 
 
 /* ====================================================
-    7) DAILY STREAK DISPLAY
+    8) DAILY STREAK DISPLAY
    ==================================================== */
 
-/* Styles for the main streak display container on the landing page */
 #landing-streak-display {
-  margin-bottom: 20px; /* Original margin from inline style */
-  font-size: 1.1em;    /* Original font-size from inline style, acts as base for children */
-  color: #e67e22;      /* Original color from inline style, for streak emoji/focal text */
-  font-weight: bold;    /* Original weight from inline style, for streak emoji/focal text */
-  text-align: center;   /* For centering the multi-line content when daily plays are used */
-  /* display: none; is handled by inline style in HTML and toggled by JS */
+  margin-bottom: 20px;
+  font-size: var(--font-base);
+  color: #e67e22;
+  font-weight: bold;
+  text-align: center;
 }
 
-
-/* Styles for the sub-messages within landing-streak-display when daily plays are used */
 #landing-streak-display .landing-sub-message {
-    font-weight: normal; /* Regular font weight */
-    color: #555;         /* Regular text color, not orange */
-    font-size: 1em;      /* Relative to #landing-streak-display's font-size (1.1em * 1em = 1.1em) */
-                                /* Or use a fixed value like 16px or a root-relative unit like 1rem */
-    line-height: 1.4;     /* Improved readability for these lines */
+    font-weight: normal;
+    color: #555;
+    font-size: 1em; /* Relative to parent */
+    line-height: 1.4;
 }
 
-/* Styles for the specific streak sub-messages */
 .streak-comeback-message {
-    color: #555555 
-    font-family: Nunito; /* Inherits 'Nunito', sans-serif from the body/parent */
-    font-size: 1em; /* This will be 1em of #landing-streak-display's 1.1em */
-    font-weight: inherit; /* Inherits 'bold' from #landing-streak-display */
-    line-height: 1.4; /* Improves readability. */
+    font-size: 1em;
+    font-weight: inherit;
+    line-height: 1.4;
     color: #555555
-    /* Add any other font styles you want here, e.g., font-style: italic; */
 }
 
 .streak-practice-suggestion {
-    color: inherit; /* Inherits the orange color (#e67e22) from #landing-streak-display */
-    font-family: inherit; /* Inherits 'Nunito', sans-serif from the body/parent */
-    font-size: 1em; /* This will be 1em of #landing-streak-display's 1.1em */
-    font-weight: inherit; /* Inherits 'bold' from #landing-streak-display */
-    line-height: 1.4; /* Improves readability. */
-    /* Add any other font styles you want here, e.g., font-style: italic; */
+    color: inherit;
+    font-size: 1em;
+    font-weight: inherit;
+    line-height: 1.4;
 }
-/* The focal streak text (e.g., "🔥 X Day Streak!") will have its larger font size (1.5em)
-    and specific color/weight applied via inline styles by the JavaScript,
-    which will override the #landing-streak-display's base font-size for that specific div. */
