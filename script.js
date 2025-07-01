@@ -1647,7 +1647,7 @@ let dailyChallengeLastPlayDateUTC = '';
 
 				if (currentGameMode === GAME_MODE.DAILY_CHALLENGE) {
 					title = "Hi! 👋 Welcome to the Daily Challenge";
-					message = `Make <strong>4-letter words</strong> in rows to score points.${exampleGridHTML}Remember you only get <strong>3 attempts</strong>, so listen up! :)`;
+					message = `Make <strong>4-letter words</strong> in rows to score points.${exampleGridHTML}`;
 				} else { // Assuming GAME_MODE.PRACTICE
 					title = "Hi! 👋 Welcome to Practice Mode";
 					message = `Make <strong>4-letter words</strong> in rows to score points.${exampleGridHTML}`;
@@ -1689,7 +1689,7 @@ let dailyChallengeLastPlayDateUTC = '';
                 break;
             case TUTORIAL_STEP.SHOW_FIRST_WORD_TIP:
                 title = "First Word Cleared! 🎉";
-                message = "Keep going, but watch out: <strong>it gets faster!</strong>";
+                message = "Keep going, but watch out: <strong>it gets faster!</strong>. <br>Remember you only get <strong>3 attempts</strong> at the daily challenge! Good luck";
                 break;
             default:
                 console.warn("Tried to start unknown tutorial step:", step);
