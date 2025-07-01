@@ -1041,6 +1041,38 @@ html, body {
     background-color: #fff;
 }
 
+/* Add these new rules to the end of the tutorial styles section */
+#tutorial-message-box .step-preview {
+    /* This is the key part for centering */
+    margin: 20px auto;
+
+    /* Defining the grid layout for this context */
+    display: grid;
+    --preview-cell-size: 35px; /* A fixed size looks good in the popup */
+    grid-template-columns: repeat(4, var(--preview-cell-size));
+    grid-template-rows: repeat(3, var(--preview-cell-size));
+    gap: 3px;
+}
+
+#tutorial-message-box .grid-cell {
+    /* Styling for the empty cells */
+    width: var(--preview-cell-size);
+    height: var(--preview-cell-size);
+    border: 1px solid #aaa;
+    border-radius: 4px;
+    background-color: #fdfdfd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(var(--preview-cell-size) * 0.5);
+    font-weight: bold;
+}
+
+#tutorial-message-box .tile-word {
+    /* Styling for the "W-O-R-D" tiles */
+    color: #6ba56b;
+    background-color: #e9f5ee;
+}
 
 /* ====================================================
     8) DAILY STREAK DISPLAY
