@@ -1689,7 +1689,7 @@ let dailyChallengeLastPlayDateUTC = '';
                 break;
             case TUTORIAL_STEP.SHOW_FIRST_WORD_TIP:
                 title = "First Word Cleared! 🎉";
-                message = "Keep going, but watch out: <strong>it gets faster!</strong>. <br><br> You get <strong>3 attempts</strong> at the daily challenge. Good luck!";
+                message = "You've got it now! But watch out: <strong>it gets faster!</strong>. <br><br> You get <strong>3 attempts</strong> daily. Good luck!";
                 break;
             default:
                 console.warn("Tried to start unknown tutorial step:", step);
