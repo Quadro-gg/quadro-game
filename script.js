@@ -1647,10 +1647,10 @@ let dailyChallengeLastPlayDateUTC = '';
 
 				if (currentGameMode === GAME_MODE.DAILY_CHALLENGE) {
 					title = "Hi! 👋 Welcome to the Daily Challenge";
-					message = `Your goal is to make <strong>4-letter words</strong> in rows to score points, just like this: <br>${exampleGridHTML}`;
+					message = `Objective: Make <strong>4-letter words</strong> in a row, just like this: <br>${exampleGridHTML}`;
 				} else { // Assuming GAME_MODE.PRACTICE
 					title = "Hi! 👋 Welcome to Practice Mode";
-					message = `Your goal is to make <strong>4-letter words</strong> in rows to score points, just like this: <br>${exampleGridHTML}`;
+					message = `Objective: Make <strong>4-letter words</strong> in a row, just like this: <br>${exampleGridHTML}`;
 				}
 				break;
 			case TUTORIAL_STEP.SHOW_MOVE:
@@ -1670,7 +1670,7 @@ let dailyChallengeLastPlayDateUTC = '';
                 return;
             case TUTORIAL_STEP.SHOW_DROP:
                 title = "Step 2: Drop";
-                message = "Good! <br>Now drop the letter to the bottom available row. Hit <strong>↓</strong> or <strong>Space</strong>.";
+                message = "Now drop the letter to the bottom available row. Hit <strong>↓</strong> or <strong>Space</strong>.";
                 highlightControls(['btn-down']);
                 break;
             case TUTORIAL_STEP.SHOW_EARLY_DROP:
@@ -1689,7 +1689,7 @@ let dailyChallengeLastPlayDateUTC = '';
                 break;
             case TUTORIAL_STEP.SHOW_FIRST_WORD_TIP:
                 title = "First Word Cleared! 🎉";
-                message = "Keep going, but watch out: <strong>it gets faster!</strong>. <br>Remember you only get <strong>3 attempts</strong> at the daily challenge! Good luck";
+                message = "Keep going, but watch out: <strong>it gets faster!</strong>. <br>Remember you only get <strong>3 attempts</strong> at the daily challenge. Good luck!";
                 break;
             default:
                 console.warn("Tried to start unknown tutorial step:", step);
