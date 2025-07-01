@@ -1647,7 +1647,7 @@ let dailyChallengeLastPlayDateUTC = '';
 
 				if (currentGameMode === GAME_MODE.DAILY_CHALLENGE) {
 					title = "Hi! 👋 Welcome to the Daily Challenge";
-					message = `Your goal is to make <strong>4-letter words</strong> in rows to score points, just like this.${exampleGridHTML}`;
+					message = `Your goal is to make <strong>4-letter words</strong> in rows to score points, just like this: <br>${exampleGridHTML}`;
 				} else { // Assuming GAME_MODE.PRACTICE
 					title = "Hi! 👋 Welcome to Practice Mode";
 					message = `Make <strong>4-letter words</strong> in rows to score points.${exampleGridHTML}`;
