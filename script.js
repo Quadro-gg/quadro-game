@@ -1650,7 +1650,7 @@ let dailyChallengeLastPlayDateUTC = '';
 					message = `Your goal is to make <strong>4-letter words</strong> in rows to score points, just like this: <br>${exampleGridHTML}`;
 				} else { // Assuming GAME_MODE.PRACTICE
 					title = "Hi! 👋 Welcome to Practice Mode";
-					message = `Make <strong>4-letter words</strong> in rows to score points.${exampleGridHTML}`;
+					message = `Your goal is to make <strong>4-letter words</strong> in rows to score points, just like this: <br>${exampleGridHTML}`;
 				}
 				break;
 			case TUTORIAL_STEP.SHOW_MOVE:
