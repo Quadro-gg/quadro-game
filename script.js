@@ -1647,10 +1647,10 @@ let dailyChallengeLastPlayDateUTC = '';
 
 				if (currentGameMode === GAME_MODE.DAILY_CHALLENGE) {
 					title = "Hi! 👋 Welcome to the Daily Challenge";
-					message = `Make <strong>4-letter words</strong> in a row, just like this: <br>${exampleGridHTML}`;
+					message = `Make <strong>4-letter words</strong> to clear the row, just like this: <br>${exampleGridHTML}<br>Unused letters will stack up. Don't let the grid fill to the top!`;
 				} else { // Assuming GAME_MODE.PRACTICE
 					title = "Hi! 👋 Welcome to Practice Mode";
-					message = `Make <strong>4-letter words</strong> in a row, just like this: <br>${exampleGridHTML}`;
+					message = `Make <strong>4-letter words</strong> to clear the row, just like this: <br>${exampleGridHTML}<br>Unused letters will stack up. Don't let the grid fill to the top!`;
 				}
 				break;
 			case TUTORIAL_STEP.SHOW_MOVE:
