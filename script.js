@@ -1634,16 +1634,30 @@ let dailyChallengeLastPlayDateUTC = '';
 
         let message = ""; let title = ""; let showContinueButton = true;
 
-        switch (step) {
-            case TUTORIAL_STEP.SHOW_GOAL:
-                if (currentGameMode === GAME_MODE.DAILY_CHALLENGE) {
-                    title = "Hi! 👋 Welcome to the Daily Challenge";
-                    message = "Make <strong>4-letter words</strong> in rows to score points.<br><br>Remember you only get <strong>3 attempts</strong>, so listen up! :)";
-                } else { // Assuming GAME_MODE.PRACTICE
-                    title = "Hi! 👋 Welcome to Practice Mode";
-                    message = "Make <strong>4-letter words</strong> in rows to score points.";
-                }
-                break;
+		switch (step) {
+			case TUTORIAL_STEP.SHOW_GOAL:
+				// HTML for the example grid.
+				const exampleGridHTML = `
+					<div class="step-preview">
+						<div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div>
+						<div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div>
+						<div class="grid-cell tile-word">W</div><div class="grid-cell tile-word">O</div><div class="grid-cell tile-word">R</div><div class="grid-cell tile-word">D</div>
+					</div>
+				`;
+
+				if (currentGameMode === GAME_MODE.DAILY_CHALLENGE) {
+					title = "Hi! 👋 Welcome to the Daily Challenge";
+					message = `Make <strong>4-letter words</strong> in rows to score points.${exampleGridHTML}Remember you only get <strong>3 attempts</strong>, so listen up! :)`;
+				} else { // Assuming GAME_MODE.PRACTICE
+					title = "Hi! 👋 Welcome to Practice Mode";
+					message = `Make <strong>4-letter words</strong> in rows to score points.${exampleGridHTML}`;
+				}
+				break;
+			case TUTORIAL_STEP.SHOW_MOVE:
+				title = "Step 1: Move the letter";
+				message = "Use <strong>← →</strong> or tap the buttons. <br>The letter will fall to the bottom available row.";
+				highlightControls(['btn-left', 'btn-right']);
+				break;
             case TUTORIAL_STEP.SHOW_MOVE:
                 title = "Step 1: Move the letter";
                 message = "Use <strong>← →</strong> or tap the buttons. <br>The letter will fall to the bottom available row.";
