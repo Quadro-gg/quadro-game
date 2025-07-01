@@ -1043,11 +1043,12 @@ html, body {
 
 /* Add these new rules to the end of the tutorial styles section */
 #tutorial-message-box .step-preview {
-    /* This is the key part for centering */
-    margin: 20px auto;
+    /* Change display to inline-grid to respect the parent's text-align: center */
+    display: inline-grid;
+    /* Add vertical margin for spacing from the text */
+    margin: 20px 0;
 
     /* Defining the grid layout for this context */
-    display: grid;
     --preview-cell-size: 35px; /* A fixed size looks good in the popup */
     grid-template-columns: repeat(4, var(--preview-cell-size));
     grid-template-rows: repeat(3, var(--preview-cell-size));
