@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Quadro - Daily Challenge</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <meta property="og:title" content="Quadro Daily Challenge!" />
+    <meta property="og:description" content="Can you beat my score on today's Quadro Daily Challenge?" />
+    <meta property="og:image" content="https://placehold.co/1200x630/fdb572/ffffff?text=Quadro" />
+    <meta property="og:url" content="https://yourdomain.com" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Quadro Daily Challenge!">
+    <meta name="twitter:description" content="Can you beat my score on today's Quadro Daily Challenge?">
+    <meta name="twitter:image" content="https://placehold.co/1200x630/fdb572/ffffff?text=Quadro">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet">
+
+    <script>
+        // Function to set the --vh custom property based on the actual visual viewport height
+        function setDynamicVh() {
+            let viewportHeight;
+            // Use visualViewport if available for better accuracy on mobile (accounts for browser UI)
+            if (window.visualViewport) {
+                viewportHeight = Math.min(window.visualViewport.height, window.innerHeight);
+            } else {
+                viewportHeight = window.innerHeight;
+            }
+            const vh = viewportHeight * 0.01;
+            document.documentElement.style.setProperty('--vh', `${vh}px`);
+        }
+        // Set the value initially
+        setDynamicVh();
+        // Recalculate on resize and orientation change
+        window.addEventListener('resize', setDynamicVh);
+        window.addEventListener('orientationchange', setDynamicVh);
+    </script>
+
+    <link rel="stylesheet" href="style.css" />
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-5XWF5QCY3X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-5XWF5QCY3X');
+</script>
+</head>
+<body>
+    <div id="landing-page">
+        <img src="logo.png" alt="Quadro Logo" class="logo" onerror="this.onerror=null; this.src='https://placehold.co/150x150/eeeeee/cccccc?text=Logo';" />
+        <h1>Quadro</h1>
+        <p>
+            Form words in a straight line and clear the grid!<br>
+        </p>
+        <div id="landing-streak-display" class="streak-display" style="display: none; margin-bottom: 20px; font-size: 1.1em; color: #e67e22; font-weight: bold;">
+            </div>
+        <div class="landing-actions">
+            <div class="landing-primary-actions">
+                <button id="play-daily-speed-btn" class="btn btn-primary">
+                    <span>Daily Challenge</span>
+                    <div class="daily-plays-indicator-circles">
+                        <span class="play-circle"></span>
+                        <span class="play-circle"></span>
+                        <span class="play-circle"></span>
+                    </div>
+                </button>
+                </div>
+            <div class="landing-secondary-actions">
+                <button id="how-to-play-btn" class="btn btn-secondary">How to Play</button>
+                <button id="practice-btn" class="btn btn-secondary">Practice Mode</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="instruction-popup">
+        <div class="instruction-container">
+            <div class="instruction-header">
+                <h1>HOW TO PLAY</h1>
+                <h2>Quadro</h2>
+            </div>
+            <div class="instruction-step">
+                <div class="step-icon double"><span>&larr;</span><span>&rarr;</span></div>
+                <div class="step-text"><h3>Move:</h3><p>Use left/right controls to position your tile.</p></div>
+                <div class="step-preview">
+                    <div class="grid-cell"></div><div class="grid-cell tile-active">O</div><div class="grid-cell"></div><div class="grid-cell"></div>
+                    <div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div>
+                    <div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div>
+                </div>
+            </div>
+            <div class="instruction-step">
+                <div class="step-icon">&darr;</div>
+                <div class="step-text"><h3>Drop:</h3><p>Use the down arrow ↓ or space to quickly drop your tile.</p></div>
+                <div class="step-preview">
+                    <div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div>
+                    <div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div>
+                    <div class="grid-cell"></div><div class="grid-cell tile-active">O</div><div class="grid-cell"></div><div class="grid-cell"></div>
+                </div>
+            </div>
+            <div class="instruction-step">
+                <div class="step-icon">&#9632;</div> <div class="step-text"><h3>Clear Rows:</h3><p>Complete a row with a valid four-letter word to clear it and score points.</p></div>
+                <div class="step-preview">
+                    <div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div>
+                    <div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div>
+                    <div class="grid-cell tile-word">W</div><div class="grid-cell tile-word">O</div><div class="grid-cell tile-word">R</div><div class="grid-cell tile-word">D</div>
+                </div>
+            </div>
+              <div class="instruction-step">
+                <div class="step-icon">&#9733;</div> <div class="step-text"><h3>Wildcard:</h3><p>Use a wildcard (&#9733;) to substitute any letter in a word.</p></div>
+                <div class="step-preview">
+                    <div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div>
+                    <div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div>
+                    <div class="grid-cell tile-word">W</div><div class="grid-cell tile-word">O</div><div class="grid-cell tile-word">R</div><div class="grid-cell wildcard-cell">&#9733;</div>
+                </div>
+            </div>
+            <div class="instruction-step" style="margin-top: 15px;">
+                <div class="step-icon" style="background-color: #fdb572;">!</div>
+                <div class="step-text"><h3>Daily Challenge Limit:</h3><p>Only 3 attempts each day.</p></div>
+            </div>
+            <button id="back-to-home-from-instructions-btn" class="btn btn-primary">Back to Home</button>
+        </div>
+    </div>
+
+    <div id="top-bar">
+        <div id="top-bar-content">
+            <span id="score-display">Score: 0</span>
+            <span id="timer-display" style="display: none;">Time: 02:00</span>
+            </div>
+    </div>
+
+    <div id="game-container">
+        <div id="game-panel">
+            <div id="game-grid">
+            </div>
+            <div id="mobile-controls">
+                <button id="btn-left" class="control-btn" aria-label="Move Left">←</button>
+                <button id="btn-down" class="control-btn" aria-label="Drop Tile">↓</button>
+                <button id="btn-right" class="control-btn" aria-label="Move Right">→</button>
+            </div>
+        </div>
+        <div id="next-preview">
+            <h3>Next</h3>
+            <div id="next-tiles">
+            </div>
+        </div>
+    </div>
+
+    <div id="game-over-overlay">
+        <div class="game-over-content">
+
+            <div id="score-section">
+                <div id="daily-score-display" style="display: none;">
+                        <p class="score-label">Daily Challenge Score:</p>
+                        <p id="daily-score-value" class="score-value">0</p>
+                </div>
+                  <div id="practice-score-display" style="display: none;">
+                    <p class="score-label">Practice Score:</p>
+                    <p id="practice-score-value" class="score-value">0</p>
+                    <p id="practice-high-score" class="high-score-display" style="display: none;">Best: 0</p>
+                </div>
+            </div>
+
+            <p id="encouraging-comment" class="encouraging-comment-text"></p>
+
+            <hr class="game-over-divider">
+
+            <p id="daily-streak-result" class="streak-display" style="display: none; margin-top: 5px; font-size: 1.1em; color: #e67e22; font-weight: bold;">
+            </p>
+            
+            <p id="daily-plays-remaining-message" class="plays-remaining-text" style="display: none; font-size: 0.9em; color: #666; margin-top: 5px;"></p>
+
+
+            <hr class="game-over-divider">
+
+            <p id="share-prompt" class="share-prompt-text">Can your friends beat this? Share below!</p>
+
+            <div id="share-panel" style="display: none;">
+                  <button id="share-twitter" class="btn-share btn-twitter" aria-label="Share score on Twitter">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334 0-.14 0-.282-.006-.422A6.685 6.685 0 0 0 16 3.542a6.658 6.658 0 0 1-1.889.518 3.301 3.301 0 0 0 1.447-1.817 6.533 6.533 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.325 9.325 0 0 1-6.767-3.429 3.289 3.289 0 0 0 1.018 4.382A3.323 3.323 0 0 1 .64 6.575v.045a3.288 3.288 0 0 0 2.632 3.218 3.203 3.203 0 0 1-.865.115 3.23 3.23 0 0 1-.614-.057 3.283 3.283 0 0 0 3.067 2.277A6.588 6.588 0 0 1 .79 13.58a6.32 6.32 0 0 1-.79-.045A9.344 9.344 0 0 0 5.026 15z"/></svg>
+                  </button>
+                  <button id="share-whatsapp" class="btn-share btn-whatsapp" aria-label="Share score on WhatsApp">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/></svg>
+                  </button>
+                  <button id="share-facebook" class="btn-share btn-facebook" aria-label="Share score on Facebook">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0 0 3.604 0 8.05C0 12.06 2.912 15.19 6.737 15.855v-5.109H4.878V8.05h1.859v-2.14c0-1.849 1.104-2.86 2.776-2.86 1.27 0 1.59.09 1.816.13v2.269h-1.11c-.916 0-1.1.433-1.1 1.06v1.74h2.49l-.405 2.696h-2.085v5.108C13.088 15.19 16 12.06 16 8.049z"/></svg>
+                  </button>
+                  <button id="share-copy" class="btn-share btn-copy" aria-label="Copy share caption">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V2Zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H6ZM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1H2Z"/></svg>
+                  </button>
+            </div>
+
+            <hr class="game-over-divider">
+
+            <div id="daily-results" class="results-section" style="display: none;"> <h4 class="leaderboard-title">Your Top 3 Daily Scores:</h4>
+                  <div id="daily-leaderboard-display" class="leaderboard-container">
+                  </div>
+            </div>
+
+            <div id="practice-results" class="results-section" style="display: none;"> <h4 class="leaderboard-title">Your Top 3 Practice Scores:</h4>
+                  <div id="practice-leaderboard-display" class="leaderboard-container">
+                  </div>
+            </div>
+
+            <hr class="game-over-divider">
+
+            <div class="game-over-actions">
+                  <button id="play-again-practice-btn" class="btn btn-primary" style="display: none;">Play Again</button>
+                  <button id="go-to-practice-mode-btn" class="btn btn-secondary" style="display: none;">Practice Mode</button> <button id="back-to-home-btn" class="btn btn-secondary">Back to Home</button>
+            </div>
+        </div>
+    </div>
+    <div id="tutorial-overlay"></div>
+    <div id="tutorial-message-box">
+        <h4 id="tutorial-step-title">Tip</h4>
+        <p id="tutorial-message-text">This is where the tutorial message will appear.</p>
+        <button id="tutorial-continue-btn" class="btn btn-primary">Continue</button>
+    </div>
+
+    <script src="four_letter_words.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
