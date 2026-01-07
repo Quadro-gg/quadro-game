@@ -1,4 +1,14 @@
 // ====================================================
+//              SUPABASE CONFIG
+// ====================================================
+
+const SUPABASE_URL = 'https://lgthshyzacxgnrpnqxvn.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxndGhzaHl6YWN4Z25ycG5xeHZuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTI3Njc4NTAsImV4cCI6MjA2ODM0Mzg1MH0.ZhOJolUsn5X44qTOiaUFBcps-HVBxklMbUe55ET1j7s';
+
+// Initialize the Supabase client
+const dbClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+// ====================================================
 //              CONSTANTS & CONFIG
 // ====================================================
 
@@ -166,6 +176,9 @@ let tutorialNextPreviewTipShown = false;
 let practiceTimerInterval = null; // To store the interval ID for the practice timer
 let timeRemaining = PRACTICE_MODE_DURATION_SECONDS; // Time remaining in seconds for practice mode
 
+// --- Supabase Variables ---
+let playerId = null; // Unique player ID for database tracking
+let gameStartTime = null; // Track when game started for duration calculation
 
 // --- DOM Element Variables ---
 let tutorialOverlayElement = null;
@@ -386,6 +399,20 @@ let dailyChallengeLastPlayDateUTC = '';
     }
 
     /**
+     * Gets a unique player ID from local storage, or creates and saves a new one.
+     */
+    function getPlayerId() {
+        const PLAYER_ID_KEY = 'QuadroPlayerId';
+        let storedPlayerId = localStorage.getItem(PLAYER_ID_KEY);
+        if (!storedPlayerId) {
+            storedPlayerId = self.crypto.randomUUID();
+            localStorage.setItem(PLAYER_ID_KEY, storedPlayerId);
+            console.log("New player ID created and saved:", storedPlayerId);
+        }
+        return storedPlayerId;
+    }
+
+    /**
      * Initializes the application on window load.
      */
     function initializeApp() {
@@ -394,6 +421,7 @@ let dailyChallengeLastPlayDateUTC = '';
             setDynamicVh();
             cacheDOMElements();
             setupEventListeners();
+            playerId = getPlayerId(); // Initialize player ID for Supabase
             needsTutorial = !localStorage.getItem("hasCompletedTutorial");
             console.log(`Needs tutorial on init? ${needsTutorial}`);
 
@@ -771,6 +799,7 @@ let dailyChallengeLastPlayDateUTC = '';
         tutorialNextPreviewTipShown = false;
 
         stopPracticeTimer(); // Clear any existing timer
+        gameStartTime = new Date(); // Track game start time for Supabase
 
         if (mode === GAME_MODE.DAILY_CHALLENGE) {
             // Increment and save play count for Daily Challenge
@@ -1450,6 +1479,7 @@ let dailyChallengeLastPlayDateUTC = '';
         stopGameLoop();
         stopPracticeTimer();
         hideTutorialElements();
+        submitScoreToDatabase(); // Submit score to Supabase
         let streakMessage = "";
 
         if (currentGameMode === GAME_MODE.DAILY_CHALLENGE) {
@@ -2058,6 +2088,51 @@ let dailyChallengeLastPlayDateUTC = '';
         }
     }
     // --- END NEW ---
+
+
+    // ====================================================
+    //              SUPABASE SCORE SUBMISSION
+    // ====================================================
+
+    /**
+     * Submits the final score and game data to the Supabase database.
+     */
+    async function submitScoreToDatabase() {
+        if (!dbClient) {
+            console.error("Supabase client not initialized. Cannot submit score.");
+            return;
+        }
+        if (!playerId) {
+            console.error("Player ID is not available. Cannot submit score.");
+            return;
+        }
+
+        const gameEndTime = new Date();
+        const durationInSeconds = gameStartTime ? Math.round((gameEndTime - gameStartTime) / 1000) : 0;
+
+        const gameData = {
+            player_id: playerId,
+            score: score,
+            game_mode: currentGameMode,
+            play_duration_seconds: durationInSeconds
+        };
+
+        console.log("Submitting score to database:", gameData);
+
+        try {
+            const { data, error } = await dbClient
+                .from('scores')
+                .insert([gameData]);
+
+            if (error) {
+                console.error("Error inserting score data:", error);
+            } else {
+                console.log("Score submitted successfully:", data);
+            }
+        } catch (err) {
+            console.error("A critical error occurred during score submission:", err);
+        }
+    }
 
 
     // ====================================================

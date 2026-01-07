@@ -5,7 +5,9 @@
       "Bash(start \"\" \"G:\\\\My Drive\\\\Wordtres\\\\Wordtres_v29\\\\index.html\")",
       "Bash(git init:*)",
       "Bash(git add:*)",
-      "Bash(git commit:*)"
+      "Bash(git commit:*)",
+      "Bash(git config:*)",
+      "Bash(git push:*)"
     ]
   }
 }
