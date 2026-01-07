@@ -5,15 +5,15 @@
 const NUM_COLS = 4;
 const NUM_ROWS = 10;
 const WILDCARD_SYMBOL = "★"; // Unicode star symbol for wildcard
-const BASE_DROP_INTERVAL = 1200; // Milliseconds for auto-drop in Practice mode
+const BASE_DROP_INTERVAL = 1440; // Milliseconds for auto-drop in Practice mode (slowed 20% from 1200)
 const MANUAL_DROP_VISUAL_DELAY = 50; // Milliseconds delay between steps in manual drop animation for visual effect
 const WORD_CLEAR_DELAY = 800; // Milliseconds delay before removing visually cleared rows and shifting tiles down
 const MANUAL_DROP_COOLDOWN = 300; // Milliseconds cooldown period after a manual drop to prevent accidental rapid drops
 
 // Speed Challenge Mode Config (Now the main Daily Challenge)
-const SPEED_CHALLENGE_INITIAL_INTERVAL = 1000; // Starting drop interval (ms) for speed mode
-const SPEED_CHALLENGE_MIN_INTERVAL = 200;    // Minimum drop interval (ms) - fastest speed
-const SPEED_CHALLENGE_INTERVAL_DECREMENT = 25; // Amount (ms) to decrease interval each time speed increases
+const SPEED_CHALLENGE_INITIAL_INTERVAL = 1200; // Starting drop interval (ms) for speed mode (slowed 20% from 1000)
+const SPEED_CHALLENGE_MIN_INTERVAL = 240;    // Minimum drop interval (ms) - fastest speed (slowed 20% from 200)
+const SPEED_CHALLENGE_INTERVAL_DECREMENT = 30; // Amount (ms) to decrease interval each time speed increases (adjusted from 25)
 const SPEED_INCREASE_ROW_COUNT = 1; // Increase speed every N rows cleared
 
 // Game Modes Enum
